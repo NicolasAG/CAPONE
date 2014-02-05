@@ -1,0 +1,70 @@
+Testing
+
+Start with a brand new app.
+Press Data->Load All From Web and select an empty folder. (There will be a ~10 min wait. Downloading over 4000 speeches)
+Select a couple MPs and add to User Profile.
+Go to user profile page
+Add a couple expression by typing in bottom left and pressing add one at a time.
+Go to recommendation page.
+Press a recommendation.
+Switch recommendation type.
+Go to profile page and remove a MP from UP. (Can view change on MP screen).
+Delete a expression.
+You can go view changes in recommendations.
+Go back to MP view.
+Filter by party
+Filter by province
+Press Profile->Forget Read Speeches
+Press Profile->Export as JSON and select location.
+Press Data->Auto Load
+Press Help->About Capone
+Press Help->Francais
+Close App.
+
+Open App.
+Update Speeches. 
+Press Data->English
+Close App
+
+Logging are being presented in two locations. 
+Exceptions are being indexed at DEBUG level and will only show up in Capone.log
+Data that is relevant to the application is at INFO level and will show up in console and Capone.log
+You can change at your discretion in the log4j.properties file.
+
+**EclEmma seems to cause some UI bugs. (i.e. sometimes need to press screen on MP view to refresh after Loading from disk)
+**There seems to be a bug only occurs on certain machines. With the exact same preconditions except for OS and machine, we get a IOException when using the parse method within the RssSaxParser. It only occurs when downloading data for certain MPs, not all.
+**The bug occurs on one of our machines (windows 8) but works fine when being run on a mac. It also works perfectly fine on the trottier linux machines.
+
+
+*****CODE THAT DID NOT GET RUN******
+
+**ABSTRACT OF TESTING**
+Majority of the code that does not get run by either App use or unit testing are mainly error handling exceptions that are out of our control. This is mainly incomplete data we try to get from the server (aka missing headers, etc.).
+The rest of the code not tested are those that we decided to add that we deemed useful if more features were to be introduced. They are mainly functions that make sense to add but are not required at the moment. This includes handling loading json userprofiles, removing observers, and functions that we were required to implement due to abstract classes we subclassed.  
+**END ABSTRACT**
+
+I am not going to mention the lines of code that handle menial exceptions. Majority of them are there due to libraries we decided to use.
+
+->UserProfile.java
+-->Line 455 ~Equals
+--->Don't use because we only have one instance of UP. Implemented if we decide to have multiple UP.
+-->Line 254 ~RemoveView
+--->This is basically remove observers. Not necessary for our app.
+-->Line 472 ~HashCode
+--->No necessary moment to hash. Implemented if we decide to have multiple UP.
+
+->JsonFormat.java
+-->Line 36 ~LoadUserProfile
+--->Was not a requirement to load json UP. Not in our UI.
+
+->MP.java
+-->Line 260 ~isInUserProfile
+--->Used in previous milestone and decided unnecessary in this version.
+-->Line 152 ~getImage
+--->Don't use image in our application. 
+
+->OpenParliamentFileLoader.java
+-->Line 685 ~getMPRelativeLocations
+--->Decided against using provided method because of new limited use since of how we implemented LoadingFromDisk.
+-->Line 661 ~getRssURI
+--->Provided method wasn't used since was inaccurate at times.

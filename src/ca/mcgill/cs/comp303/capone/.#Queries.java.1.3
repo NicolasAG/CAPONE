@@ -1,0 +1,88 @@
+package ca.mcgill.cs.comp303.capone;
+
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.Date;
+
+import ca.mcgill.cs.comp303.capone.model.MP;
+import ca.mcgill.cs.comp303.capone.model.Membership;
+import ca.mcgill.cs.comp303.capone.model.Parliament;
+
+/**
+ * Compute the results of two queries on the data.
+ */
+public final class Queries
+{
+	private Queries(){}
+	
+	/**
+	 * @return The email address of the MP who has served the longest 
+	 * in parliament, in terms of total number of days in any membership.
+	 * If there are ties, return all ties in any order.
+	 */
+	public static Set<String> q1LongestServingMPs()
+	{
+		ArrayList<String> emailAddresses = new ArrayList<String>();
+		
+		long term = 0;
+		long diffDays = 0;
+		long longestOffice = 0;        
+		
+		for (MP m : Parliament.getInstance().getMPs())
+		{
+			for (Membership mem : m.getMemberships())
+			{
+				Date startdate = mem.getStartDate();
+				Date enddate = mem.getEndDate();
+				
+				try
+				{
+					long diff = enddate.getTime() - startdate.getTime();
+					diffDays = diff / (24 * 60 * 60 * 1000);					
+					
+				}
+				catch(Exception e) 
+				{
+					e.printStackTrace();
+				}
+				term += diffDays;				
+			}
+			if(term > longestOffice)
+			{
+				longestOffice = term;
+				emailAddresses.clear();
+				emailAddresses.add(m.getEmail());		
+			}
+			else if(term == longestOffice)
+			{
+				emailAddresses.add(m.getEmail());
+			}
+			
+			term = 0;
+			diffDays = 0;
+		}
+		
+		
+		return null; // TODO enhance this algorithm
+	}
+	
+	/**
+	 * @return The email address of the MP who has served in the largest
+	 * number of different political parties. If there are ties, return 
+	 * all ties in any order.
+	 */
+	public static Set<String> q2LargestNumberOfParties()
+	{
+		return null; // TODO enhance this algorithm
+	}
+	
+	/**
+	 * @return The number of speeches in which Thomas Mulcair
+	 * uses the word "Conservative" (not the plural variant, 
+	 * but case-insensitive).
+	 */
+	public static int q3NumberOfConservativeWordUsage()
+	{
+		return Integer.MAX_VALUE; // TODO not the real answer
+	}
+}
