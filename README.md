@@ -1,10 +1,8 @@
-CAPONE
-======
-
-CAnadian POlitical NEws
+CAPONE - CAnadian POlitical NEws
+================================
 
 group project by: Jeffrey Ng, Andrej Gomizelj, Nicolas Angelard-Gontier
------------------------------------------------------------------------
+
 
 Installation:
  - dowload the zip file.
